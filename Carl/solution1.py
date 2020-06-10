@@ -3,6 +3,7 @@ class Grid(object):
 
   def traverse(self, grid, m, n, path):
     x, y = path[-1]
+    print("At %s, %s" % (x, y))
     if x + 1 < m and grid[x + 1][y] == 0:
       path.append((x + 1, y))
       self.traverse(grid, m, n, path)
@@ -12,6 +13,7 @@ class Grid(object):
       self.traverse(grid, m, n, path)
       path.pop()
     if x + 1 == m and y + 1 == n:
+      print('Reached')
       self.count += 1
 
   def count_paths(self, grid):
@@ -30,4 +32,19 @@ class Grid(object):
     n = len(grid[0])
     path = [(0, 0)]
     self.traverse(grid, m, n, path)
-    return self.count
+    count = self.count
+    self.count = 0
+    return count
+
+if __name__ == '__main__':
+  test_grid_object = Grid()
+  grid = [
+    [0, 0, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [1, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0]
+  ]
+  count = test_grid_object.count_paths(grid)
+  print(count)
